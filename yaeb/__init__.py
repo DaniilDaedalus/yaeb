@@ -1,0 +1,1 @@
+"""Basic event bus implementation."""

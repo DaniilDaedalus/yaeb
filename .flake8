@@ -1,0 +1,9 @@
+[flake8]
+max-line-length = 88
+max-annotation-complexity = 4
+
+ignore = \
+    WPS306,  ; Found class without a base class
+    DAR101,  ; Missing parameter(s) in Docstring
+    DAR401,  ; Missing exception(s) in Raises section
+    S101,    ; Use of assert detected
