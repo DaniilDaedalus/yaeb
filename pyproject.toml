@@ -26,7 +26,7 @@ pytest-cov = "*"
 wemake-python-styleguide = "*"
 pycln = "*"
 isort = "*"
-add-trailing-comma = "^2.2.3"
+add-trailing-comma = "*"
 
 [tool.coverage.report]
 exclude_lines = ["raise NotImplementedError"]
