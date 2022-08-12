@@ -1,9 +1,12 @@
 [flake8]
 max-line-length = 88
 max-annotation-complexity = 4
+min-name-length = 1
 
 ignore = \
     WPS306,  ; Found class without a base class
     DAR101,  ; Missing parameter(s) in Docstring
     DAR401,  ; Missing exception(s) in Raises section
+    DAR201,  ; Missing "Returns" in Docstring
     S101,    ; Use of assert detected
+    WPS615,  ; Found unpythonic getter or setter
