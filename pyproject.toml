@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "yaeb"
-version = "0.1.2"
+version = "0.2.0"
 description = "A simple typed event bus written in pure python"
 authors = ["Daniil Fedyaev <wintercitizen@outlook.com>"]
 readme = "README.md"
@@ -30,6 +30,10 @@ add-trailing-comma = "*"
 
 [tool.coverage.report]
 exclude_lines = ["raise NotImplementedError"]
+
+[tool.isort]
+multi_line_output = "VERTICAL_HANGING_INDENT"
+include_trailing_comma = true
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,7 +1,8 @@
 """Module testing event bus functionality."""
 from dataclasses import dataclass
 
-from yaeb.bus import AllEvents, Event, EventBus, EventHandler
+from yaeb.bus import EventBus, NonPersistentEventHandlerRegistry
+from yaeb.interface import AllEvents, Event, EventBusInterface, EventHandler
 
 
 class FakeEvent(Event):
@@ -14,7 +15,7 @@ class FakeHandler(EventHandler[FakeEvent]):
 
     is_called: bool
 
-    def handle_event(self, event: FakeEvent, bus: EventBus) -> None:
+    def handle_event(self, event: FakeEvent, bus: EventBusInterface) -> None:
         """Record call to this handler ignoring event."""
         self.is_called = True
 
@@ -22,7 +23,7 @@ class FakeHandler(EventHandler[FakeEvent]):
 def test_bus() -> None:
     """Test that event bus is capable of registering & emitting events."""
     # Given: Empty bus & test event handler
-    bus = EventBus()
+    bus = EventBus(NonPersistentEventHandlerRegistry())
 
     fake_handler = FakeHandler(is_called=False)
 
@@ -37,7 +38,7 @@ def test_bus() -> None:
 def test_all_events_registration() -> None:
     """Test that event bus is capable of registering for all events."""
     # Given: Empty bus & test event handler
-    bus = EventBus()
+    bus = EventBus(NonPersistentEventHandlerRegistry())
 
     fake_handler = FakeHandler(is_called=False)
 
