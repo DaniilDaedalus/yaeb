@@ -17,7 +17,9 @@ Install yaeb with pip
 ```python
 from logging import info
 
-from yaeb.bus import Event, EventBus, EventHandler
+from yaeb.bus import EventBus, NonPersistentEventHandlerRegistry
+from yaeb.interface import Event, EventBusInterface, EventHandler
+
 
 class UserCreated(Event):
     user_id: int
@@ -27,15 +29,16 @@ class UserCreated(Event):
 
 
 class UserCreatedHandler(EventHandler[UserCreated]):
-    def handle_event(self, event: UserCreated, bus: EventBus) -> None:
+    def handle_event(self, event: UserCreated, bus: EventBusInterface) -> None:
         info('User with id=%d was created!', event.user_id)
 
 
 if __name__ == '__main__':
-    bus = EventBus()
+    bus = EventBus(event_handler_registry=NonPersistentEventHandlerRegistry())
     bus.register(event_type=UserCreated, event_handler=UserCreatedHandler())
 
     bus.emit(UserCreated(user_id=1))  # prints log message with created user id
+
 ```
 
 
