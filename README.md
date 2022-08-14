@@ -44,6 +44,6 @@ if __name__ == '__main__':
 
 ## Roadmap
 
-- [ ] Add coroutines support
+- [x] Add coroutines support
 - [ ] Add some kind of multithreading support. Though it can be implemented by handlers themselves 🤔
 

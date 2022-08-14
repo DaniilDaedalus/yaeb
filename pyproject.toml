@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "yaeb"
-version = "0.2.1"
+version = "0.2.3"
 description = "A simple typed event bus written in pure python"
 authors = ["Daniil Fedyaev <wintercitizen@outlook.com>"]
 readme = "README.md"
@@ -27,6 +27,7 @@ wemake-python-styleguide = "*"
 pycln = "*"
 isort = "*"
 add-trailing-comma = "*"
+pytest-asyncio = ""
 
 [tool.coverage.report]
 exclude_lines = ["raise NotImplementedError"]
@@ -34,6 +35,9 @@ exclude_lines = ["raise NotImplementedError"]
 [tool.isort]
 multi_line_output = "VERTICAL_HANGING_INDENT"
 include_trailing_comma = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
