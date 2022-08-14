@@ -1,0 +1,15 @@
+name: Quality Assurance
+on: [push]
+jobs:
+  QA:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip3 install poetry
+      - run: make install-ci
+      - run: make lint
+      - run: make test

@@ -1,3 +1,10 @@
+install:
+	poetry install
+
+install-ci:
+	poetry config virtualenvs.create false
+	poetry install -vv
+
 format:
 	pycln yaeb tests
 	isort yaeb tests
@@ -8,6 +15,7 @@ lint:
 	isort -c yaeb tests
 	black -S --check yaeb tests
 	mypy --strict yaeb tests
+	flake8 .
 
 test:
 	pytest --cov-report term-missing --cov
