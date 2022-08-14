@@ -22,7 +22,15 @@ class EventHandler(abc.ABC, Generic[E]):
 
     @abc.abstractmethod
     def handle_event(self, event: E, bus: EventBusInterface) -> None:
-        """Handle any given event."""
+        """Handle given event."""
+        raise NotImplementedError
+
+
+class AsyncEventHandler(abc.ABC, Generic[E]):
+    """Base class for async event handlers."""
+
+    async def handle_event(self, event: E, bus: EventBusInterface) -> None:
+        """Handle given event asynchronously."""
         raise NotImplementedError
 
 
@@ -33,7 +41,7 @@ class EventHandlerRegistry(abc.ABC):
     def add_event_handler(
         self,
         event_type: Type[Event] | Type[AllEvents],
-        event_handler: EventHandler[Any],
+        event_handler: EventHandler[Any] | AsyncEventHandler[Any],
     ) -> None:
         """Add event handler for given event type to registry."""
         raise NotImplementedError
@@ -42,7 +50,7 @@ class EventHandlerRegistry(abc.ABC):
     def get_event_handlers(
         self,
         event_type: Type[Event] | Type[AllEvents],
-    ) -> tuple[EventHandler[Any], ...]:
+    ) -> tuple[EventHandler[Any] | AsyncEventHandler[Any], ...]:
         """Get event handlers for given event type from registry."""
         raise NotImplementedError
 
@@ -54,7 +62,7 @@ class EventBusInterface(abc.ABC):
     def register(
         self,
         event_type: Type[Event] | Type[AllEvents],
-        event_handler: EventHandler[Any],
+        event_handler: EventHandler[Any] | AsyncEventHandler[Any],
     ) -> None:
         """Register handler for given event."""
         raise NotImplementedError
