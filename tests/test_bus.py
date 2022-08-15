@@ -29,7 +29,7 @@ def test_bus() -> None:
 
     # When: Test event handler is registered for event & corresponding event is emitted
     bus.register(FakeEvent, fake_handler)
-    bus.emit(FakeEvent())
+    bus.emit(FakeEvent(parent_event=None))
 
     # Then: Test event handler is called
     assert fake_handler.is_called
@@ -44,7 +44,7 @@ def test_all_events_registration() -> None:
 
     # When: Test event handler is registered for all events & any event is emitted
     bus.register(AllEvents, fake_handler)
-    bus.emit(Event())
+    bus.emit(Event(parent_event=None))
 
     # Then: Test event handler is called
     assert fake_handler.is_called

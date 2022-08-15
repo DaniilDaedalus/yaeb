@@ -26,7 +26,7 @@ async def test_bus_async() -> None:
     bus.register(Event, test_event_handler)
 
     # When: corresponding event is called
-    bus.emit(Event())
+    bus.emit(Event(parent_event=None))
 
     # Then: async handler is called asynchronously
     await asyncio.sleep(0)
