@@ -1,16 +1,16 @@
 """Test base event functionality."""
-from yaeb.interface import Event
+from yaeb.base import BaseEvent
 
 
-class FakeFirstEvent(Event):
+class FakeFirstEvent(BaseEvent):
     """Fake first emitted event."""
 
 
-class FakeSecondEvent(Event):
+class FakeSecondEvent(BaseEvent):
     """Fake second emitted event."""
 
 
-class FakeThirdEvent(Event):
+class FakeThirdEvent(BaseEvent):
     """Fake third emitted event."""
 
 
