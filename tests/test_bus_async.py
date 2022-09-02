@@ -2,17 +2,17 @@
 import asyncio
 import dataclasses
 
-from yaeb.bus import EventBus, NonPersistentEventHandlerRegistry
-from yaeb.interface import AsyncEventHandler, Event, EventBusInterface
+from yaeb.base import BaseAsyncEventHandler, BaseEvent, BaseEventBus
+from yaeb.bus import DictEventHandlerRegistry, EventBus
 
 
 @dataclasses.dataclass
-class FakeAsyncEventHandler(AsyncEventHandler[Event]):
+class FakeAsyncEventHandler(BaseAsyncEventHandler[BaseEvent]):
     """Test async event handling recording calls to itself."""
 
     is_called: bool
 
-    async def handle_event(self, event: Event, bus: EventBusInterface) -> None:
+    async def handle_event(self, event: BaseEvent, bus: BaseEventBus) -> None:
         """Record call to this handler, ignoring event."""
         self.is_called = True
 
@@ -22,11 +22,11 @@ async def test_bus_async() -> None:
     # Given: async event handler registered for the bus
     test_event_handler = FakeAsyncEventHandler(False)
 
-    bus = EventBus(NonPersistentEventHandlerRegistry())
-    bus.register(Event, test_event_handler)
+    bus = EventBus(DictEventHandlerRegistry())
+    bus.register(BaseEvent, test_event_handler)
 
     # When: corresponding event is called
-    bus.emit(Event(parent_event=None))
+    bus.emit(BaseEvent(parent_event=None))
 
     # Then: async handler is called asynchronously
     await asyncio.sleep(0)
