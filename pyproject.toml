@@ -16,7 +16,7 @@ keywords = ["event", "bus", "typed", "eventbus"]
 [tool.poetry.dependencies]
 python = "^3.10"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "*"
 mypy = "*"
 black = "*"
@@ -27,14 +27,23 @@ wemake-python-styleguide = "*"
 pycln = "*"
 isort = "*"
 add-trailing-comma = "*"
-pytest-asyncio = ""
+pytest-asyncio = "*"
+factory-boy = "*"
 
 [tool.coverage.report]
-exclude_lines = ["raise NotImplementedError"]
+exclude_lines = [
+    "raise NotImplementedError",
+    "if TYPE_CHECKING",
+]
 
 [tool.isort]
 multi_line_output = "VERTICAL_HANGING_INDENT"
 include_trailing_comma = true
+
+[tool.mypy]
+disallow_subclassing_any = false
+ignore_missing_imports = true
+strict = true
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

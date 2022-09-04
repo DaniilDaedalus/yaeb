@@ -6,7 +6,7 @@ install-ci:
 	poetry install -vv
 
 format:
-	pycln yaeb tests
+	pycln -a yaeb tests
 	isort yaeb tests
 	black -S yaeb tests
 
@@ -14,7 +14,7 @@ lint:
 	pycln -c yaeb tests
 	isort -c yaeb tests
 	black -S --check yaeb tests
-	mypy --strict yaeb tests
+	mypy yaeb tests
 	flake8 .
 
 test:
