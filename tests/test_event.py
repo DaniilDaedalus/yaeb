@@ -1,5 +1,7 @@
 """Test base event functionality."""
-from yaeb.base import BaseEvent
+
+
+from yaeb.base.events import BaseEvent
 
 
 class FakeFirstEvent(BaseEvent):

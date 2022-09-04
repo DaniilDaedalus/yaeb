@@ -1,21 +1,16 @@
 """Module testing event bus functionality."""
-from dataclasses import dataclass
-
-from yaeb.base import AllEvents, BaseEvent, BaseEventBus, BaseSyncEventHandler
-from yaeb.bus import DictEventHandlerRegistry, EventBus
-
-
-class FakeEvent(BaseEvent):
-    """Testing event."""
+from tests.tools import Event, EventBusFactory
+from yaeb.base.bus import BaseEventBus
+from yaeb.base.events import AllEvents, BaseEvent
+from yaeb.base.handlers import BaseEventHandler
 
 
-@dataclass
-class FakeHandler(BaseSyncEventHandler[FakeEvent]):
-    """Testing handler recording calls to it's handle_event."""
+class FakeHandler(BaseEventHandler[Event]):
+    """Testing handler recording calls to it's `execute`."""
 
     is_called: bool
 
-    def handle_event(self, event: FakeEvent, bus: BaseEventBus) -> None:
+    def execute(self, event: Event, bus: BaseEventBus) -> None:
         """Record call to this handler ignoring event."""
         self.is_called = True
 
@@ -23,13 +18,13 @@ class FakeHandler(BaseSyncEventHandler[FakeEvent]):
 def test_bus() -> None:
     """Test that event bus is capable of registering & emitting events."""
     # Given: Empty bus & test event handler
-    bus = EventBus(DictEventHandlerRegistry())
+    bus = EventBusFactory.create()
 
-    fake_handler = FakeHandler(is_called=False)
+    fake_handler = FakeHandler()
 
     # When: Test event handler is registered for event & corresponding event is emitted
-    bus.register(FakeEvent, fake_handler)
-    bus.emit(FakeEvent(parent_event=None))
+    bus.register(Event, fake_handler)
+    bus.emit(Event(parent_event=None))
 
     # Then: Test event handler is called
     assert fake_handler.is_called
@@ -38,9 +33,9 @@ def test_bus() -> None:
 def test_all_events_registration() -> None:
     """Test that event bus is capable of registering for all events."""
     # Given: Empty bus & test event handler
-    bus = EventBus(DictEventHandlerRegistry())
+    bus = EventBusFactory.create()
 
-    fake_handler = FakeHandler(is_called=False)
+    fake_handler = FakeHandler()
 
     # When: Test event handler is registered for all events & any event is emitted
     bus.register(AllEvents, fake_handler)

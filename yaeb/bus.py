@@ -2,13 +2,10 @@
 import dataclasses
 from typing import Any, Type
 
-from yaeb.base import (
-    AllEvents,
-    BaseEvent,
-    BaseEventBus,
-    BaseEventHandler,
-    BaseEventHandlerRegistry,
-)
+from yaeb.base.bus import BaseEventBus
+from yaeb.base.events import AllEvents, BaseEvent
+from yaeb.base.handlers import BaseEventHandler
+from yaeb.base.registry import BaseEventHandlerRegistry
 
 
 @dataclasses.dataclass
