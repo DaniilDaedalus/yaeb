@@ -10,3 +10,4 @@ ignore = \
     DAR201,  ; Missing "Returns" in Docstring
     S101,    ; Use of assert detected
     WPS615,  ; Found unpythonic getter or setter
+    Q000,    ; Double quotes found but single quotes preferred - I'm ok with double quotes

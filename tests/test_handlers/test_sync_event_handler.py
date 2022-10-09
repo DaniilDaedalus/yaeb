@@ -1,15 +1,16 @@
 """Module testing sync event handler's functionality."""
-from tests.tools import Event, EventBusFactory
+from tests.factories.bus import EventBusFactory
 from yaeb.base.bus import BaseEventBus
+from yaeb.base.events import BaseEvent
 from yaeb.base.handlers import BaseSyncEventHandler
 
 
-class SyncEventHandler(BaseSyncEventHandler[Event]):
+class SyncEventHandler(BaseSyncEventHandler[BaseEvent]):
     """Sync event handler recording calls to itself."""
 
     is_called: bool
 
-    def handle_event(self, event: Event, bus: BaseEventBus) -> None:
+    def handle_event(self, event: BaseEvent, bus: BaseEventBus) -> None:
         """Record call to this handler ignoring event."""
         self.is_called = True
 
@@ -21,7 +22,7 @@ def test_sync_event_handler() -> None:
 
     # When: handler's execute is called
     sync_event_handler.execute(
-        event=Event(parent_event=None),
+        event=BaseEvent(parent_event=None),
         bus=EventBusFactory.create(),
     )
 

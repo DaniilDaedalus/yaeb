@@ -18,4 +18,4 @@ lint:
 	flake8 .
 
 test:
-	pytest --cov-report term-missing --cov
+	pytest --cov-report term-missing --cov=yaeb
