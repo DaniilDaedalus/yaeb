@@ -1,12 +1,11 @@
 """Module storing base event models."""
 from __future__ import annotations
 
-import abc
 from collections import deque
 from typing import final
 
 
-class BaseEvent(abc.ABC):
+class BaseEvent:
     """Base class for events."""
 
     parent_event: BaseEvent | None
